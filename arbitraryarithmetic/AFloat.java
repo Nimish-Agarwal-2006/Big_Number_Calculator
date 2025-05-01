@@ -3,7 +3,7 @@ package arbitraryarithmetic;
 
 public class AFloat{
 
-    String value;
+    public String value;
 
     public AFloat()
     {
@@ -36,6 +36,31 @@ public class AFloat{
         }
 
         
+    }
+    public static boolean valid_check(String s)
+    {
+        int check=0;
+        int check2=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)=='.')
+            {
+                check++;
+            }
+            if(s.charAt(i)<'0'||s.charAt(i)>'9')
+            {
+                check2++;
+            }
+        }
+        if(check==1&&check2==1)
+        {
+            return true;
+        }
+        if(check==0&&check2==0)
+        {
+            return true;
+        }
+        return false;
     }
     public String give_pre_decimal(String s)
     {
@@ -168,7 +193,6 @@ public class AFloat{
 
         }
         without_decimal1.value=this.give_pre_decimal(this.value)+this.give_post_decimal(this.value);
-        System.out.println(without_decimal1.value);
         for(j=0;j<s.length();j++)
         {
             if(s.charAt(s.length()-j-1)=='.')
@@ -178,13 +202,12 @@ public class AFloat{
 
         }
         without_decimal2.value=this.give_pre_decimal(s)+this.give_post_decimal(s);
-        System.out.println(without_decimal2.value);
         String after=without_decimal1.positive_multi(without_decimal2.value);
         while(after.length()<=i+j+1)
         {
             after='0'+after;
         }
-        without_decimal1.value=without_decimal1.remove_initial_zeros(after.substring(0,after.length()-i-j));
+        without_decimal1.value=AInteger.remove_initial_zeros(after.substring(0,after.length()-i-j));
         without_decimal2.value=without_decimal2.remove_final_zeros(after.substring(after.length()-i-j));
         after=without_decimal1.value+'.'+without_decimal2.value;
         return after;
@@ -419,12 +442,6 @@ public class AFloat{
             after=this.float_div(other.value);
         }
         return new AFloat(after);
-    }
-
-    public static void main(String[] args) {
-        AFloat a=new AFloat("10.9");
-        AFloat b=new AFloat("0.0001");
-        System.out.println(a.div(b).value);
     }
     
 }

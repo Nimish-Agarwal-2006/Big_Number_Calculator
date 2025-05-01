@@ -9,8 +9,10 @@ public class MyInfArith {
         String operand1 = args[2];
         String operand2 = args[3];
         String operation_lower =operation.toLowerCase();
-        System.out.println(operation_lower);
         if (type.equals("int")) {
+            if (!(AInteger.valid_check(operand1) && AInteger.valid_check(operand2))) {
+                throw new IllegalArgumentException("Invalid argument");
+            }
             AInteger a1 = new AInteger(operand1);
             AInteger a2 = new AInteger(operand2);
             AInteger result = new AInteger();
@@ -31,8 +33,19 @@ public class MyInfArith {
                     System.out.println("Invalid operation.");
                     return;
             }
-            System.out.println("Result: " + result);
+            System.out.println("Result: " + result.value);
         } else if (type.equals("float")) {
+            if(AInteger.valid_check(operand1))
+            {
+                operand1=operand1+".0";
+            }
+            if(AInteger.valid_check(operand2))
+            {
+                operand2=operand2+".0";
+            }
+            if (!(AFloat.valid_check(operand1) && AFloat.valid_check(operand2))) {
+                throw new IllegalArgumentException("Invalid argument");
+            }
             AFloat f1 = new AFloat(operand1);
             AFloat f2 = new AFloat(operand2);
             AFloat result = new AFloat();
@@ -55,7 +68,7 @@ public class MyInfArith {
                     return;
             }
 
-            System.out.println("Result: " + result);
+            System.out.println("Result: " + result.value);
         }
     }
 }

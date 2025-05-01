@@ -21,8 +21,20 @@ public class AInteger{
     {
         return new AInteger(s);
     }
+    public static boolean valid_check(String s)
+    {
+        s=AInteger.remove_initial_zeros(s);
+        for(int i=0;i<s.length();i++)
+        {
+            if(s.charAt(i)<'0'||s.charAt(i)>'9')
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     //Function to remove excessive initial zeros like 001 to 1 and -0123 to -123
-    public String remove_initial_zeros(String s)
+    public static String remove_initial_zeros(String s)
     {
         int i=0;
         for(i=0;i<s.length()-1;i++)
@@ -47,7 +59,7 @@ public class AInteger{
 
     //Function that checks which number is greator
     //This function returns true if the second number is greator
-    //Here bothg numbers are positive
+    //Here both numbers are positive
     public boolean neg_check(String s)
     {
         boolean negcheck=false;
@@ -391,16 +403,6 @@ public class AInteger{
         return new AInteger(after);
     }
 
-
-
-
-
-    public static void main(String args[])
-    {
-        AInteger a=new AInteger("1");
-        AInteger b=new AInteger("1");
-        System.out.println(a.sub(b).value);
-    }
 
 }
    
