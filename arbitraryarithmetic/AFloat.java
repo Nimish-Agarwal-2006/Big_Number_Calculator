@@ -237,8 +237,8 @@ public class AFloat{
                 post_decimal2.value=post_decimal2.value+'0';
             }
         }
-        AInteger divident=new AInteger(pre_decimal1.value+post_decimal1.value);
-        AInteger divisor=new AInteger(pre_decimal2.value+post_decimal2.value);
+        AInteger divident=new AInteger(AInteger.remove_initial_zeros(pre_decimal1.value+post_decimal1.value));
+        AInteger divisor=new AInteger(AInteger.remove_initial_zeros(pre_decimal2.value+post_decimal2.value));
         String after=divident.positive_div(divisor.value);
         int j=0;
         for(int i=0;i<1000;i++)

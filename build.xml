@@ -22,7 +22,7 @@
 
     <target name="run" depends="jar">
         <java classname="MyInfArith" fork="true" classpath="arbitraryarithmetic/aarithmetic.jar:.">
-            <arg line="${args}"/>
+            <arg value="${args}"/>
         </java>
     </target>
 </project>

@@ -12,7 +12,7 @@
 ### FILE STRUCTURE
 - The library contains a package called `arbitraryarithmetic` with the following files:
   - **`AInteger.java`**: Contains the implementation for arbitrary-precision integer arithmetic.
-  - **`Afloat.java`**: Contains the implementation for arbitrary-precision floating-point arithmetic.
+  - **`AFloat.java`**: Contains the implementation for arbitrary-precision floating-point arithmetic.
   - **`MyInfArith.java`**: The main class that integrates and provides the interface for performing arbitrary-precision arithmetic operations.
 
 
@@ -27,7 +27,7 @@
 ## COMPONENTS
 
 ### AINTEGER.JAVA (INTEGER CLASS)
-- The `Ainteger` class handles operations for arbitrarily large integers, including support for negative values. It supports basic arithmetic operations such as addition, subtraction, multiplication, and division, using string-based representations for the numbers. This class ensures no precision is lost, even with very large numbers.
+- The `AInteger` class handles operations for arbitrarily large integers, including support for negative values. It supports basic arithmetic operations such as addition, subtraction, multiplication, and division, using string-based representations for the numbers. This class ensures no precision is lost, even with very large numbers.
 - This class file belongs to the `arbitraryarithmetic` package.
 
 #### MEMBER VARIABLES
@@ -35,29 +35,43 @@
 
 #### CONSTRUCTORS
 1. **DEFAULT CONSTRUCTOR**:
-   - **`public Ainteger()`**: Initializes the `num` member variable to the string `"0"`, representing the integer value 0.
+   - **`public AInteger
+  ()`**: Initializes the `num` member variable to the string `"0"`, representing the integer value 0.
    
 2. **PARAMETERIZED CONSTRUCTOR**:
-   - **`public Ainteger(String s)`**: Initializes the `num` member variable with the value provided in the string `s`.
+   - **`public AInteger
+  (String s)`**: Initializes the `num` member variable with the value provided in the string `s`.
 
 #### KEY METHODS
-- `copy()`: Returns a new Ainteger object initialized with the current `num` value.
-- **`addition(Ainteger a)`**:  
-  Calls the `add(Ainteger a)` method to add the current `Ainteger` with another `Ainteger`. It then trims the output of the `add` method to ensure the result is correctly formatted.
-- **`subtract(Ainteger a)`**:  
-  Calls the `sub(Ainteger a)` method to subtract another `Ainteger` from the current `Ainteger`. It then trims the output of the `sub` method.
-- **`multiply(Ainteger a)`**:  
-  Calls the `mult(Ainteger a)` method to multiply the current `Ainteger` with another `Ainteger`. It then trims the output of the `mult` method.
-- **`divide(Ainteger a)`**:  
-  Calls the `division(Ainteger)` method where it divides the current `Ainteger` by another `Ainteger` and returns the list of quotient and remainder. It returns the quotient from the output of the `division` method.
-- `compareTo(Ainteger a)`: Compares two `Ainteger` objects.
+- `copy()`: Returns a new AInteger object initialized with the current `num` value.
+- **`addition(AInteger a)`**:  
+  Calls the `add(AInteger
+ a)` method to add the current `AInteger
+` with another `AInteger
+`. It then trims the output of the `add` method to ensure the result is correctly formatted.
+- **`subtract(AInteger a)`**:  
+  Calls the `sub(AInteger
+ a)` method to subtract another `AInteger
+` from the current `AInteger
+`. It then trims the output of the `sub` method.
+- **`multiply(AInteger a)`**:  
+  Calls the `mult(AInteger
+ a)` method to multiply the current `AInteger
+` with another `AInteger
+`. It then trims the output of the `mult` method.
+- **`divide(AInteger a)`**:  
+  Calls the `division(AInteger
+)` method where it divides the current `AInteger
+` by another `AInteger
+` and returns the list of quotient and remainder. It returns the quotient from the output of the `division` method.
+- `compareTo(AInteger a)`: Compares two `AInteger` objects.
 - `remove_zeroes(String s)`: Removes leading or trailing zeros from a string representation of a number.
-- `parse(String s)`: Parses a string into an `Ainteger` object.
+- `parse(String s)`: Parses a string into an `AInteger` object.
 - `valid_check(String s)`: Checks if a string is a valid integer.
 
 ### AFLOAT.JAVA (FLOAT CLASS)
 - This class file belongs to the `arbitraryarithmetic` package.
-- The `Afloat` class handles arbitrary-precision floating-point numbers, offering support for both integer and decimal parts. Like the `Ainteger` class, `Afloat` uses string-based representations to store numbers and ensures no precision loss for large numbers. This class supports operations like addition, subtraction, multiplication, and division on floating-point numbers.
+- The `AFloat` class handles arbitrary-precision floating-point numbers, offering support for both integer and decimal parts. Like the `AInteger` class, `AFloat` uses string-based representations to store numbers and ensures no precision loss for large numbers. This class supports operations like addition, subtraction, multiplication, and division on floating-point numbers.
 
 #### MEMBER VARIABLES
 - `num`: Stores the number as a string.
@@ -66,8 +80,8 @@
 - `no_decimal_num`: Stores the number string without the decimal.
 
 #### CONSTRUCTORS
-- **`Afloat()`**: Initializes an `Afloat` object with a default value of `0.0`.
-- **`Afloat(String inp)`**: Initializes an `Afloat` object with a given string input representing a floating-point number.
+- **`AFloat()`**: Initializes an `AFloat` object with a default value of `0.0`.
+- **`AFloat(String inp)`**: Initializes an `AFloat` object with a given string input representing a floating-point number.
   - If the input does not contain a decimal point, it appends `.0` to treat it as a floating-point number.
   - Splits the input into two parts:
     - `intpart`: The part before the decimal.
@@ -75,18 +89,18 @@
   - Concatenates `intpart` and `decimalpart` to get `no_decimal_num`, which is used for internal arithmetic operations.
 
 #### KEY METHODS
-- `copy()`: Returns a new Afloat object initialized with the current `num` value.
-- **`addition(Afloat a)`**:  
-  Calls the `add(Afloat a)` method to add the current `Afloat` with another `Afloat`. It then trims the output of the `add` method to ensure the result is correctly formatted.
-- **`subtract(Afloat a)`**:  
-  Calls the `sub(Afloat a)` method to subtract another `Afloat` from the current `Afloat`. It then trims the output of the `sub` method.
-- **`multiply(Afloat a)`**:  
-  Calls the `mult(Afloat a)` method to multiply the current `Afloat` with another `Afloat`. It then trims the output of the `mult` method.
-- **`divide(Afloat a)`**:  
-  Calls the `division(Afloat a)` method where it divides the current `Afloat` by another `Afloat`. It then trims the output of the `division` method.
-- `compareTo(Afloat a)`: Compares two `Afloat` objects.
+- `copy()`: Returns a new AFloat object initialized with the current `num` value.
+- **`addition(AFloat a)`**:  
+  Calls the `add(AFloat a)` method to add the current `AFloat` with another `AFloat`. It then trims the output of the `add` method to ensure the result is correctly formatted.
+- **`subtract(AFloat a)`**:  
+  Calls the `sub(AFloat a)` method to subtract another `AFloat` from the current `AFloat`. It then trims the output of the `sub` method.
+- **`multiply(AFloat a)`**:  
+  Calls the `mult(AFloat a)` method to multiply the current `AFloat` with another `AFloat`. It then trims the output of the `mult` method.
+- **`divide(AFloat a)`**:  
+  Calls the `division(AFloat a)` method where it divides the current `AFloat` by another `AFloat`. It then trims the output of the `division` method.
+- `compareTo(AFloat a)`: Compares two `AFloat` objects.
 - `remove_zeroes(String s)`: Removes leading or trailing zeros from a string representation of a number.
-- `parse(String s)`: Parses a string into an `Afloat` object.
+- `parse(String s)`: Parses a string into an `AFloat` object.
 - `valid_check(String s)`: Checks if a string is a valid float.
 
 ### MYINFARITH.JAVA
@@ -124,7 +138,7 @@ Result: 1.285714285714285714285714285714
 ```
 ## Installation
 
-Simply download or clone this repository and add the `Ainteger` and `Afloat` classes to your Java project. There's no additional installation required.
+Simply download or clone this repository and add the `AInteger` and `AFloat` classes to your Java project. There's no additional installation required.
 
 ## Conclusion
 ### Key Learning
