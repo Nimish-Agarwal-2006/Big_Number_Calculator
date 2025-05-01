@@ -252,7 +252,13 @@ public class AFloat{
             after1000='0'+after1000;
             j-=1;
         }
-        after1000=after1000.substring(0,after.length())+'.'+after1000.substring(after.length());
+        String a=after1000.substring(after.length());
+        a=AInteger.remove_final_zeros(a);
+        if(a.length()>30)
+        {
+            a=a.substring(0,30);
+        }
+        after1000=AInteger.remove_initial_zeros(after1000.substring(0,after.length()))+'.'+a;
         return after1000;
     }
 

@@ -45,7 +45,7 @@ public class AInteger{
         s=s.substring(i);
         return s;
     }
-    public String remove_final_zeros(String s)
+    public static String remove_final_zeros(String s)
     {
         int i;
         for(i=s.length()-1;i>0;i--)
