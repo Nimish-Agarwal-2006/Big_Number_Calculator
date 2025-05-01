@@ -181,6 +181,10 @@ public class AInteger{
     }
     public String positive_div(String s)
     {
+        if(AInteger.remove_initial_zeros(s).equals("0"))
+        {
+            throw new ArithmeticException("Division by 0 Error");
+        }
         int len=s.length();
         AInteger other=new AInteger(s);
         if(this.value.length()<len)

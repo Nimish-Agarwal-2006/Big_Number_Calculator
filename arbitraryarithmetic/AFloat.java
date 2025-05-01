@@ -218,6 +218,10 @@ public class AFloat{
         AInteger pre_decimal2=new AInteger(this.give_pre_decimal(s));
         AInteger post_decimal1=new AInteger(this.give_post_decimal(this.value));
         AInteger post_decimal2=new AInteger(this.give_post_decimal(s));
+        if(AInteger.remove_initial_zeros(pre_decimal2.value).equals("0")&&AInteger.remove_final_zeros(post_decimal2.value).equals("0"))
+        {
+            throw new ArithmeticException("Division by 0 Error");
+        }
         int c=Math.max(post_decimal1.value.length(),post_decimal2.value.length());
         if(post_decimal1.value.length()<c)
         {

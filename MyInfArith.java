@@ -46,6 +46,7 @@ public class MyInfArith {
             if (!(AFloat.valid_check(operand1) && AFloat.valid_check(operand2))) {
                 throw new IllegalArgumentException("Invalid argument");
             }
+            
             AFloat f1 = new AFloat(operand1);
             AFloat f2 = new AFloat(operand2);
             AFloat result = new AFloat();
