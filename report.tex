@@ -1,0 +1,254 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    
+    {\Huge \textbf{Arbitrary Precision Calculator} \par}
+    \vspace{1cm}
+    
+    {\Large Final Project Report for CS1023 \par}
+    {\Large Software Development Fundamentals \par}
+    
+    \vspace{2.5cm}
+    
+    {\large \textbf{Submitted by:} \par}
+    \vspace{0.3cm}
+    {\large Sarvan Naidu \par}
+    {\large CS24BTECH11024 \par}
+    
+    \vspace{2cm}
+    
+    {\large \textbf{Date:} \today \par}
+    
+    \vfill
+\end{titlepage}
+\section{Abstract}
+This report discusses the design and implementation of an arbitrary-precision arithmetic library in Java, focusing on the key classes: \texttt{Ainteger}, \texttt{Afloat}, and \texttt{MyInfArith}. The library supports arithmetic operations (addition, subtraction, multiplication, division) on both integer and floating-point numbers with arbitrary precision. The design leverages string manipulation for arbitrary-precision handling and offers a detailed explanation of each file and their associated algorithms.
+
+\section{Introduction}
+In this project, we implement arbitrary-precision arithmetic for integers and floating-point numbers. This allows operations on numbers of arbitrary size or precision without being restricted by the limitations of standard Java primitive data types like \texttt{int} or \texttt{double}. The implementation consists of the following key components:
+\begin{itemize}
+    \item \texttt{Ainteger} Class: Handles arbitrary-precision integer arithmetic.
+    \item \texttt{Afloat} Class: Handles arbitrary-precision floating-point arithmetic.
+    \item \texttt{MyInfArith} Class: Acts as the driver class to accept user inputs and perform the required operations.
+    \item Ant Build Script: Facilitates building, compiling, and running the project.
+\end{itemize}
+\subsection{Standard Types vs. Custom Arbitrary-Precision Types}
+
+Java's standard numeric types have fixed ranges that can be limiting for certain applications. Here’s a comparison of their minimum and maximum values:
+
+\begin{itemize}
+    \item \texttt{int}: A signed 32-bit integer with a range from \(-2^{31}\) to \(2^{31} - 1\).
+    \item \texttt{long}: A signed 64-bit integer with a range from \(-2^{63}\) to \(2^{63} - 1\).
+    \item \texttt{float}: A 32-bit floating-point number, which can represent values from approximately \(\pm 3.4 \times 10^{38}\), with a precision of about 7 decimal digits.
+    \item \texttt{double}: A 64-bit floating-point number, which can represent values from approximately \(\pm 1.8 \times 10^{308}\), with a precision of about 15-16 decimal digits.
+\end{itemize}
+
+While these types cover a wide range of values, they are still limited by their size and precision.
+
+In contrast, custom arbitrary-precision types, such as \texttt{Ainteger} and \texttt{Afloat}, can handle integer and floating-point numbers without predefined limits on range or precision. These types offer much greater flexibility for applications requiring high precision or large-scale calculations, effectively overcoming the limitations of Java's standard types.
+
+\section{File Descriptions}
+\subsection{Ainteger.java}
+The \texttt{Ainteger} class provides arbitrary-precision integer arithmetic. It supports operations like addition, subtraction, multiplication, and division. The class works by processing the input digit-wise, using string manipulation to handle large numbers that exceed the limits of Java's native integer types.
+
+\begin{itemize}
+    \item The class accepts integers as string inputs, allowing it to handle numbers of arbitrary size.
+    \item Operations like addition, subtraction, multiplication, and division are performed digit by digit.
+    \item The class includes mechanisms to validate input strings and remove leading or trailing zeroes.
+\end{itemize}
+
+
+\subsection{Afloat.java}
+The \texttt{Afloat} class handles arbitrary-precision floating-point arithmetic. It stores the number as a string with separate integer and decimal parts, and uses the \texttt{Ainteger} class for handling the integer portions of the floating-point operations. The class provides similar arithmetic operations as \texttt{Ainteger}, with added complexity to manage decimal precision.
+
+\begin{itemize}
+    \item The class initializes a floating-point number from a string, splitting it into integer and decimal parts.
+    \item The class supports operations like addition, subtraction, multiplication, and division for floating-point numbers, handling both integer and decimal parts.
+    \item The class includes methods for formatting the result and validating input strings, ensuring the precision of the floating-point calculations.
+\end{itemize}
+
+\subsection{MyInfArith.java}
+The \texttt{MyInfArith} class serves as the entry point for running the arbitrary-precision arithmetic operations. It takes command-line arguments to determine the type of operation (addition, subtraction, multiplication, or division) and the operands (either integers or floating-point numbers). Based on the type, the corresponding class (\texttt{Ainteger} or \texttt{Afloat}) is used to perform the arithmetic operations.
+
+\begin{itemize}
+    \item \textbf{Input Handling:} Accepts user input in the form of command-line arguments, which specify the type (integer or float), operation (add, sub, mul, div), and the two operands.
+    \item \textbf{Operation Dispatch:} Depending on the operation requested, the appropriate method from \texttt{Ainteger} or \texttt{Afloat} is invoked.
+\end{itemize}
+\subsection{Runner.py}
+\begin{itemize}
+    \item A Python script to compile and run \texttt{MyInfArith.java} with \texttt{aarithmetic.jar} in classpath.
+    \item Accepts 4 command-line arguments: type, operation, operand1, and operand2.
+    \item Uses \texttt{subprocess.run()} to handle Java compilation and execution.
+    \item Displays result or error based on Java program output.
+\end{itemize}
+
+\subsection{aarithmetic.jar}
+
+The \texttt{aarithmetic.jar} file is an essential part of the project, and it serves the following purposes:
+
+\begin{itemize}
+    \item It includes the compiled \texttt{Ainteger.class} and \texttt{Afloat.class} files.
+    \item It contains functionality for arbitrary-precision integer and floating-point arithmetic, supporting operations such as addition, subtraction, multiplication, and division on large numbers.
+    \item The JAR file is created through an automated build process defined in the \texttt{build.xml} Ant file. This file compiles the Java classes and packages them into the JAR.
+    \item It is intended for use in applications requiring high-precision numerical operations that cannot be handled by Java's standard integer and floating-point types.
+\end{itemize}
+
+
+\subsection{Ant Build Script (build.xml)}
+The Ant build script automates the compilation and execution of the project. It defines the following targets:
+\begin{itemize}
+    \item \texttt{clean}: Deletes all compiled class files and the JAR file.
+    \item \texttt{compile}: Compiles all Java source files.
+    \item \texttt{jar}: Packages the compiled classes into a JAR file for easier distribution and execution.
+    \item \texttt{run}: Executes the \texttt{MyInfArith} class, passing the appropriate arguments to perform the arithmetic operations.
+\end{itemize}
+
+\section{Algorithms}
+
+\subsection{Ainteger Class}
+
+\subsubsection{Addition}
+\begin{enumerate}
+    \item A check is made to determine the signs of the operands. If one number is negative, the operation is transformed into subtraction (i.e., adding the absolute value of the negative number to the other).
+    \item Aligning the numbers by adding zeroes to the shorter number.
+    \item Adding the numbers digit by digit, carrying over any excess value (similar to traditional addition).
+    \item Formatting the result and removing leading zeroes.
+\end{enumerate}
+
+\subsubsection{Subtraction}
+\begin{enumerate}
+    \item A sign check determines if one number is negative. If so, the operation is converted into addition by using the absolute value of the negative number.
+    \item Align the numbers by adding zeroes to the shorter number.
+    \item Subtract the numbers digit by digit, borrowing as needed.
+    \item Format the result by removing leading zeroes.
+\end{enumerate}
+
+\subsubsection{Multiplication}
+\begin{enumerate}
+    \item A sign check is done to see if one or both operands are negative. If one operand is negative, the result is negative; if both are negative, the result is positive.
+    \item The negative signs are removed and added to the result at last based on the sign check.
+    \item Treating the numbers as large integers, multiplying them digit by digit.
+    \item Carrying over any excess value during multiplication.
+    \item Adjusting the result to account for the number of digits in the operands.
+    \item Formatting the result and removing leading zeroes.
+\end{enumerate}
+
+\subsubsection{Division}
+\begin{enumerate}
+    \item A sign check is done first: if exactly one operand is negative, the final quotient is marked negative.
+    \item Both numbers are converted to their absolute values for the division process.
+    \item Digits from the dividend are added one by one to form a temporary value.
+    \item At each step, the largest multiple of the divisor that fits into the temporary value is determined and added to the quotient.
+    \item This process continues until all digits are processed or the remaining part becomes smaller than the divisor.
+    \item The remainder is stored separately, and leading zeroes are removed from the final quotient.
+\end{enumerate}
+
+\subsection{Afloat Class}
+
+\subsubsection{Addition}
+The addition of two arbitrary-precision floating-point numbers involves:
+\begin{enumerate}
+    \item If one number is negative, treat the operation as subtraction.
+    \item Align the numbers by counting the digits after the decimal in both numbers and pad the shorter number with zeroes to match the longer one.
+    \item Remove the decimal points from both numbers, treating the integer and decimal parts as one large integer (e.g., \(9.99\) becomes \(999\) and \(8.75\) becomes \(875\)).
+    \item Add the numbers using integer addition (using the \texttt{Ainteger} class).
+    \item Reinsert the decimal point into the result after addition, based on the original decimal places of the two numbers.
+\end{enumerate}
+
+
+\subsubsection{Subtraction}
+Subtraction of two arbitrary-precision floating-point numbers follows these steps:
+\begin{enumerate}
+    \item If one number is negative, treat the operation as addition.
+    \item Align the numbers by counting and padding the decimal places to match the longer one.
+    \item Remove the decimal points and perform subtraction on the resulting integers.
+    \item Reinsert the decimal point into the result after subtraction.
+\end{enumerate}
+
+\subsubsection{Multiplication}
+Multiplication of two arbitrary-precision floating-point numbers involves:
+\begin{enumerate}
+    \item Check for negative signs, and treat the result sign accordingly.
+    \item Count the decimal places in both numbers and add them together.
+    \item Remove the decimal points, treating both numbers as large integers.
+    \item Multiply the integers using the integer multiplication method (using the \texttt{Ainteger} class).
+    \item Reinsert the decimal point at the position determined by the total number of decimal places.
+\end{enumerate}
+
+
+\subsubsection{Division}
+Division of two arbitrary-precision floating-point numbers follows these steps:
+\begin{enumerate}
+    \item Check for negative signs, and treat the result sign accordingly.
+    \item Remove the decimal points from both numbers and treat them as large integers.
+    \item Use long division to compute the quotient, adding digits to the quotient until it reaches a maximum length or the division is complete.
+    \item Reinsert the decimal point in the quotient at the appropriate position.
+    \item To maintain precision, the result is rounded to 30 significant digits. If the result extends beyond this, any additional digits are truncated, and trailing zeros after the decimal point are removed.
+\end{enumerate}
+
+\section{Testing}
+
+Correctness of the functions of these classes was mainly tested manually, with comprehensive test cases for both integer and float operations.
+\subsection{Ainteger}
+\begin{enumerate}
+    \item \(1234 + 5678 = 6912\)
+    \item \(78 + (-56) = 22\)
+    \item \(5678 - 1234 = 4444\)
+    \item \(98879 - (-97767) = 196646\)
+    \item \(5344 \times 98008 = 523754752\)
+    \item \(-878 \times 99 = -86922\)
+    \item \(-878 \times 999876565 = -877891624070\)
+    \item \(100 \div 789 = 0\)
+    \item \(997783738 \div (-976) = -1022319\)
+    \item \(997783738 \div \text{hi} = \text{Exception (Invalid input)}\)
+    \item \(99778373 \div \text{-99-7} = \text{Exception (Invalid input)}\)
+\end{enumerate}
+\subsection{Afloat}
+\begin{enumerate}
+    \item \(12.34 + 56.78 = 69.12\)
+    \item \(78 + (-56.5) = 21.5\)
+    \item \(56.78 - 12.34 = 44.44\)
+    \item \(98.879 - (-97.767) = 196.646\)
+    \item \(5.344 \times 9.8008 = 52.3754752\)
+    \item \(-87.8 \times 9.9 = -869.22\)
+    \item \(2 \div 8.00 = 0.25\)
+    \item \(-76.27221 \div (-8.87762) = 8.591515518798957378216233630184\)
+    \item \(32.5 \div 0.0 = \text{Exception (Division by zero)}\)
+    \item \(25qbc + 8.2 = \text{Exception (Invalid input)}\)
+\end{enumerate}
+
+\section{Build and Run}
+
+\subsection{Building the package (.JAR):}
+\begin{itemize}
+    \item \texttt{ant clean} followed by \texttt{ant}
+\end{itemize}
+
+\subsection{Executing via MyInfArith:}
+\begin{itemize}
+    \item \texttt{javac MyInfArith.java}
+    \item \texttt{java MyInfArith <int/float> <add/sub/mul/div> <operand1> <operand2>}
+\end{itemize}
+
+\subsection{Executing via runner.py:} 
+\begin{itemize}
+    \item \texttt{python runner.py <int/float> <add/sub/mul/div> <operand1> <operand2>}
+\end{itemize}
+
+\subsection{Executing via aarithmetic.jar:} 
+\begin{itemize}
+    \item \texttt{javac -cp .:<add the absolute path to the .jar package here> <relative path to your desired file>}
+    \item \texttt{java -cp .:<absolute path to .jar package> <relative path to your file>}
+\end{itemize}
+
+\end{document}
