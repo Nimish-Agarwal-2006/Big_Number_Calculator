@@ -12,7 +12,7 @@
     \centering
     \vspace*{3cm}
     
-    {\Huge \textbf{Arbitrary Precision Calculator} \par}
+    {\Huge \textbf{Big Number Calculator} \par}
     \vspace{1cm}
     
     {\Large Final Project Report for CS1023 \par}
@@ -22,8 +22,8 @@
     
     {\large \textbf{Submitted by:} \par}
     \vspace{0.3cm}
-    {\large Sarvan Naidu \par}
-    {\large CS24BTECH11024 \par}
+    {\large Nimish Agarwal \par}
+    {\large CS24BTECH11044 \par}
     
     \vspace{2cm}
     
@@ -31,32 +31,17 @@
     
     \vfill
 \end{titlepage}
-\section{Abstract}
-This report discusses the design and implementation of an arbitrary-precision arithmetic library in Java, focusing on the key classes: \texttt{Ainteger}, \texttt{Afloat}, and \texttt{MyInfArith}. The library supports arithmetic operations (addition, subtraction, multiplication, division) on both integer and floating-point numbers with arbitrary precision. The design leverages string manipulation for arbitrary-precision handling and offers a detailed explanation of each file and their associated algorithms.
+\section{Objective}
+This report discusses the design and implementation of an arbitrary-precision arithmetic library in Java, focusing on the key classes: \texttt{AInteger}, \texttt{AFloat}, and \texttt{MyInfArith}. The library supports arithmetic operations (addition, subtraction, multiplication, division) on both integer and floating-point numbers with arbitrary precision. The design leverages string manipulation for arbitrary-precision handling and offers a detailed explanation of each file and their associated algorithms.
 
 \section{Introduction}
 In this project, we implement arbitrary-precision arithmetic for integers and floating-point numbers. This allows operations on numbers of arbitrary size or precision without being restricted by the limitations of standard Java primitive data types like \texttt{int} or \texttt{double}. The implementation consists of the following key components:
 \begin{itemize}
-    \item \texttt{Ainteger} Class: Handles arbitrary-precision integer arithmetic.
-    \item \texttt{Afloat} Class: Handles arbitrary-precision floating-point arithmetic.
+    \item \texttt{AInteger} Class: Handles arbitrary-precision integer arithmetic.
+    \item \texttt{AFloat} Class: Handles arbitrary-precision floating-point arithmetic.
     \item \texttt{MyInfArith} Class: Acts as the driver class to accept user inputs and perform the required operations.
     \item Ant Build Script: Facilitates building, compiling, and running the project.
 \end{itemize}
-\subsection{Standard Types vs. Custom Arbitrary-Precision Types}
-
-Java's standard numeric types have fixed ranges that can be limiting for certain applications. Here’s a comparison of their minimum and maximum values:
-
-\begin{itemize}
-    \item \texttt{int}: A signed 32-bit integer with a range from \(-2^{31}\) to \(2^{31} - 1\).
-    \item \texttt{long}: A signed 64-bit integer with a range from \(-2^{63}\) to \(2^{63} - 1\).
-    \item \texttt{float}: A 32-bit floating-point number, which can represent values from approximately \(\pm 3.4 \times 10^{38}\), with a precision of about 7 decimal digits.
-    \item \texttt{double}: A 64-bit floating-point number, which can represent values from approximately \(\pm 1.8 \times 10^{308}\), with a precision of about 15-16 decimal digits.
-\end{itemize}
-
-While these types cover a wide range of values, they are still limited by their size and precision.
-
-In contrast, custom arbitrary-precision types, such as \texttt{Ainteger} and \texttt{Afloat}, can handle integer and floating-point numbers without predefined limits on range or precision. These types offer much greater flexibility for applications requiring high precision or large-scale calculations, effectively overcoming the limitations of Java's standard types.
-
 \section{File Descriptions}
 \subsection{Ainteger.java}
 The \texttt{Ainteger} class provides arbitrary-precision integer arithmetic. It supports operations like addition, subtraction, multiplication, and division. The class works by processing the input digit-wise, using string manipulation to handle large numbers that exceed the limits of Java's native integer types.
@@ -65,6 +50,8 @@ The \texttt{Ainteger} class provides arbitrary-precision integer arithmetic. It 
     \item The class accepts integers as string inputs, allowing it to handle numbers of arbitrary size.
     \item Operations like addition, subtraction, multiplication, and division are performed digit by digit.
     \item The class includes mechanisms to validate input strings and remove leading or trailing zeroes.
+    \item The class contains functions such as \texttt{neg\_check} and other helper methods.
+    \item It will give error if the arguments are not valid(i.e. not big integers)
 \end{itemize}
 
 
@@ -208,10 +195,11 @@ Correctness of the functions of these classes was mainly tested manually, with c
     \item \(5344 \times 98008 = 523754752\)
     \item \(-878 \times 99 = -86922\)
     \item \(-878 \times 999876565 = -877891624070\)
-    \item \(100 \div 789 = 0\)
+    \item \(100 \div 789 \approx 0.1267\)
     \item \(997783738 \div (-976) = -1022319\)
-    \item \(997783738 \div \text{hi} = \text{Exception (Invalid input)}\)
-    \item \(99778373 \div \text{-99-7} = \text{Exception (Invalid input)}\)
+    \item \(997783738 \div \texttt{hi} = \text{Exception (Invalid input)}\)
+    \item \(99778373 \div \texttt{-99-7} = \text{Exception (Invalid input)}\)
+
 \end{enumerate}
 \subsection{Afloat}
 \begin{enumerate}
@@ -219,12 +207,13 @@ Correctness of the functions of these classes was mainly tested manually, with c
     \item \(78 + (-56.5) = 21.5\)
     \item \(56.78 - 12.34 = 44.44\)
     \item \(98.879 - (-97.767) = 196.646\)
-    \item \(5.344 \times 9.8008 = 52.3754752\)
+    \item \(5.344 \times 9.8008 = 52.3924672\)
     \item \(-87.8 \times 9.9 = -869.22\)
     \item \(2 \div 8.00 = 0.25\)
-    \item \(-76.27221 \div (-8.87762) = 8.591515518798957378216233630184\)
-    \item \(32.5 \div 0.0 = \text{Exception (Division by zero)}\)
-    \item \(25qbc + 8.2 = \text{Exception (Invalid input)}\)
+    \item \(-76.27221 \div (-8.87762) = 8.592413172305967\)
+    \item \(32.5 \div 0 = \text{Exception (Division by zero)}\)
+    \item \(\texttt{25qbc} + 8.2 = \text{Exception (Invalid input)}\)
+
 \end{enumerate}
 
 \section{Build and Run}
