@@ -12,7 +12,7 @@
 
     <target name="jar" depends="compile">
         <jar destfile="arbitraryarithmetic/aarithmetic.jar">
-            <fileset dir="arbitraryarithmetic" includes="Ainteger.class,Afloat.class"/>
+            <fileset dir="arbitraryarithmetic" includes="AInteger.class,AFloat.class"/>
             <manifest>
                 <attribute name="Implementation-Title" value="Arbitrary Arithmetic Library"/>
                 <attribute name="Implementation-Version" value="1.0"/>
